@@ -1,0 +1,23 @@
+# .gitignore
+# Archivos y carpetas que no deben subirse al repositorio
+
+# Entornos virtuales
+venv/
+env/
+
+# Variables de entorno y secretos
+.env
+
+# Base de datos local de desarrollo
+db.sqlite3
+
+# Archivos de Python compilados
+__pycache__/
+*.pyc
+
+# Archivos de configuración del editor
+.vscode/
+.idea/
+
+# Archivos estáticos recolectados (se generan, no se escriben a mano)
+staticfiles/
