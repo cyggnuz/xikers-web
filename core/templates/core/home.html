@@ -4,7 +4,6 @@
 {% block title %}xikers // Home{% endblock %}
 
 {% block extra_css %}
-  <!-- CSS específico para los estilos visuales del Home y el Hero -->
   <link rel="stylesheet" href="{% static 'core/css/home.css' %}">
 {% endblock %}
 
@@ -16,19 +15,121 @@
   <div class="hero-content">
     <h1 class="hero-title">WELCOME TO THE TRICKY HOUSE</h1>
     
-    <!-- Único botón: LET'S GO -->
     <div class="hero-buttons">
-      <a href="#explore-section" class="btn-neon btn-neon--purple">
+      <a href="#about-section" class="btn-neon btn-neon--purple">
         <i class="fas fa-chevron-right"></i> LET'S GO
       </a>
     </div>
   </div>
 </section>
 
-<!-- SECCIÓN 2: A donde se deslizará la página -->
-<section id="explore-section" class="explore-section">
-  <div class="container">
-    <!-- Aquí irá la sección de abajo cuando la definas -->
+<!-- SECCIÓN CONCEPT: ESTILO HUD TÁCTICO CON TEXTURA & AMARILLO -->
+<section class="meditation-section">
+  
+  <!-- Textura de cuadrícula táctica de fondo -->
+  <div class="bg-grid-texture"></div>
+
+  <!-- Marco Biselado Táctico -->
+  <div class="meditation-frame">
+    
+    <!-- Header de Interfaz Superior (Amarillo) -->
+    <div class="meditation-header">
+      <span>[ SYSTEM // ARCHIVE_01 ]</span>
+      <span>XIKERS OFFICIAL DATABASE</span>
+    </div>
+
+    <!-- Círculo de Luz Neón AMARILLO Centrado -->
+    <div class="meditation-glow"></div>
+
+    <!-- Imagen Principal Centrada (Sujeto) -->
+    <img src="{% static 'core/images/home3.png' %}" alt="xikers concept" class="meditation-subject">
+
+    <!-- Título Principal al Centro en Amarillo -->
+    <h2 class="meditation-title">[ xikers ]</h2>
+
+    <!-- Tarjeta Flotante Esquina Superior Izquierda -->
+    <div class="meditation-card card-top-left">
+      <span class="card-tag">// IDENTIFICATION</span>
+      <p>Viajeros interdimensionales que cruzan el espacio-tiempo desafiando las fronteras de la realidad.</p>
+    </div>
+
+    <!-- Tarjeta Flotante Esquina Superior Derecha -->
+    <div class="meditation-card card-top-right">
+      <span class="card-tag">// LORE</span>
+      <p>Conectados al misterioso universo narrativo de TRICKY y su energía desbordante.</p>
+    </div>
+
+    <!-- Dato Inferior Izquierdo -->
+    <div class="meditation-info-item item-bottom-left">
+      <span class="info-num">01 // DEBUT</span>
+      <strong>30.03.2023</strong>
+    </div>
+
+    <!-- Dato Inferior Derecho -->
+    <div class="meditation-info-item item-bottom-right">
+      <span class="info-num">02 // FANDOM</span>
+      <strong>roady</strong>
+      <a href="/members/" class="btn-meditation">MIEMBROS ➔</a>
+    </div>
+
+  </div>
+
+</section>
+
+<!-- SECCIÓN 3: UNIT SCANNER / ROSTER TIPO PICKS -->
+<section class="members-preview-section">
+  <div class="bg-grid-texture"></div>
+
+  <!-- Contenedor del encabezado con más separación -->
+  <div class="members-header">
+    <span class="section-tag">[ OPERATIVES // DATABASE ]</span>
+    <h2 class="section-title">UNIT SCANNER</h2>
+  </div>
+
+  <div class="roster-container">
+    <div class="roster-row">
+      {% for member in members %}
+        <div class="roster-card">
+          <!-- Contenedor 3D que realiza el volteo -->
+          <div class="roster-flipper">
+            
+            <!-- CARA FRONTAL -->
+            <div class="roster-face roster-front">
+              <div class="roster-skew-inner">
+                {% if member.image %}
+                  <img src="{{ member.image.url }}" alt="{{ member.name }}" class="roster-img">
+                {% endif %}
+                <div class="roster-overlay"></div>
+                <h3 class="roster-name">{{ member.name }}</h3>
+              </div>
+            </div>
+
+            <!-- CARA TRASERA (VOLTEO) -->
+            <div class="roster-face roster-back">
+              <div class="roster-skew-inner">
+                {% if member.back_image %}
+                  <img src="{{ member.back_image.url }}" alt="{{ member.name }} alt" class="roster-img">
+                {% else %}
+                  <!-- Muestra la misma foto si no hay foto trasera aún -->
+                  <img src="{{ member.image.url }}" alt="{{ member.name }}" class="roster-img">
+                {% endif %}
+                <div class="roster-overlay"></div>
+                <h3 class="roster-name">{{ member.name }}</h3>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        {% if forloop.counter == 5 and not forloop.last %}
+          </div><div class="roster-row">
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+
+  <div class="members-footer">
+    <a href="/members/" class="btn-neon">VER BASE DE DATOS COMPLETA ➔</a>
   </div>
 </section>
 {% endblock %}

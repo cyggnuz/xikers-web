@@ -1,80 +1,540 @@
 /* static/core/css/home.css */
 
+/* ==========================================================================
+   SECCIÓN 1: HERO
+   ========================================================================== */
 .hero-section {
-    position: relative;
-    width: 100%;
-    min-height: calc(100vh + 80px);
-    margin-top: -80px;
-    background-image: url('../images/home.png');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  position: relative;
+  width: 100%;
+  min-height: calc(100vh + 80px);
+  margin-top: -80px;
+  background-image: url('../images/home.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* Capa oscura transparente para que resalte el texto y el botón */
 .hero-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.4);
-    z-index: 1;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 1;
 }
 
 .hero-content {
-    position: relative;
-    z-index: 2;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 2rem;
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--espacio-md);
 }
 
 /* Título estilo Cyberpunk / Retro */
 .hero-title {
-    font-family: 'Press Start 2P', monospace;
-    font-size: 2.2rem;
-    color: #ffffff;
-    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8),
-                 0 0 20px rgba(186, 85, 211, 0.6);
-    margin: 0;
-    letter-spacing: 2px;
+  font-family: var(--font-heading);
+  font-size: var(--texto-lg);
+  color: var(--texto);
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.8),
+               0 0 20px rgba(255, 210, 31, 0.6);
+  margin: 0;
+  letter-spacing: 2px;
 }
 
 /* Botón LET'S GO */
 .btn-neon {
-    display: inline-block;
-    padding: 1rem 2.5rem;
-    font-family: 'Rajdhani', sans-serif;
-    font-weight: 700;
-    font-size: 1.3rem;
-    text-decoration: none;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    color: #fff;
-    background: rgba(186, 85, 211, 0.2);
-    border: 2px solid #ba55d3;
-    border-radius: 4px;
-    box-shadow: 0 0 15px rgba(186, 85, 211, 0.4);
-    transition: all 0.3s ease;
-    cursor: pointer;
+  display: inline-block;
+  padding: 1rem 2.5rem;
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: var(--texto-md);
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--texto);
+  background: rgba(255, 210, 31, 0.15);
+  border: 2px solid var(--color-identidad);
+  border-radius: 4px;
+  box-shadow: 0 0 15px rgba(255, 210, 31, 0.4);
+  transition: all 0.3s ease;
+  cursor: pointer;
 }
 
 .btn-neon:hover {
-    background: #ba55d3;
-    color: #000;
-    box-shadow: 0 0 25px rgba(186, 85, 211, 0.9);
-    transform: translateY(-3px);
+  background: var(--color-identidad);
+  color: #000000;
+  box-shadow: 0 0 25px rgba(255, 210, 31, 0.9);
+  transform: translateY(-3px);
 }
 
 /* Sección 2 (de prueba) */
 .explore-section {
-    min-height: 100vh;
-    background-color: var(--bg-color, #0a0a0c); /* Ajusta a tu variable de color de fondo */
-    padding: 4rem 2rem;
+  min-height: 100vh;
+  background-color: var(--bg-principal);
+  padding: var(--espacio-lg) var(--espacio-md);
+}
+
+/* ==========================================================================
+   SECCIÓN 2: CONCEPT (AMARILLO TÁCTICO & TEXTURA GRID)
+   ========================================================================== */
+.meditation-section {
+  position: relative;
+  width: 100%;
+  min-height: calc(100vh - 80px);
+  background-color: var(--bg-principal);
+  padding: var(--espacio-sm) var(--espacio-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* 🎯 TEXTURA DE FONDO (Cuadrícula Táctica) */
+.bg-grid-texture {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    linear-gradient(to right, rgba(255, 210, 31, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 210, 31, 0.04) 1px, transparent 1px);
+  background-size: 30px 30px;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Marco Biselado Exterior */
+.meditation-frame {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 1350px;
+  height: clamp(580px, 78vh, 720px);
+  background: rgba(26, 26, 31, 0.65);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 210, 31, 0.2);
+  clip-path: polygon(
+    0 30px, 30px 0, 
+    calc(100% - 30px) 0, 100% 30px, 
+    100% calc(100% - 30px), calc(100% - 30px) 100%, 
+    30px 100%, 0 calc(100% - 30px)
+  );
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Header superior fino */
+.meditation-header {
+  position: absolute;
+  top: 15px;
+  left: 35px;
+  right: 35px;
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-accent);
+  font-size: var(--texto-sm);
+  color: var(--color-identidad);
+  letter-spacing: 2px;
+  opacity: 0.85;
+  z-index: 10;
+}
+
+/* Círculo Neón AMARILLO Detrás */
+.meditation-glow {
+  position: absolute;
+  width: 480px;
+  height: 480px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 210, 31, 0.2) 0%, rgba(255, 210, 31, 0.03) 55%, rgba(0,0,0,0) 70%);
+  top: 48%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Sujeto / Imagen Principal Centrada */
+.meditation-subject {
+  position: relative;
+  z-index: 2;
+  height: 92%;
+  width: auto;
+  max-width: 85%;
+  object-fit: contain;
+  -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 80%, rgba(0,0,0,0) 100%);
+  mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 80%, rgba(0,0,0,0) 100%);
+}
+
+/* Título estilo [ xikers ] */
+.meditation-title {
+  position: absolute;
+  top: 55%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: var(--font-accent);
+  font-size: var(--texto-lg);
+  letter-spacing: 24px;
+  color: rgba(255, 210, 31, 0.22);
+  text-shadow: 0 0 25px rgba(255, 210, 31, 0.3), 0 0 10px rgba(0, 0, 0, 0.9);
+  white-space: nowrap;
+  z-index: 3;
+  pointer-events: none;
+  margin: 0;
+  text-transform: lowercase;
+}
+
+/* Tarjetas de Cristal Flotantes */
+.meditation-card {
+  position: absolute;
+  background: rgba(13, 13, 15, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-left: 3px solid var(--color-identidad);
+  padding: var(--espacio-sm) 1.2rem;
+  border-radius: 6px;
+  max-width: 270px;
+  z-index: 5;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.7);
+}
+
+.card-tag {
+  font-family: var(--font-accent);
+  font-size: var(--texto-sm);
+  color: var(--color-identidad);
+  display: block;
+  margin-bottom: 0.3rem;
+}
+
+.meditation-card p {
+  font-family: var(--font-body);
+  font-size: var(--texto-sm);
+  color: var(--texto);
+  line-height: 1.4;
+  margin: 0;
+}
+
+/* Posición Esquinas Superiores */
+.card-top-left {
+  top: 55px;
+  left: 35px;
+}
+
+.card-top-right {
+  top: 55px;
+  right: 35px;
+}
+
+/* Items Esquinas Inferiores */
+.meditation-info-item {
+  position: absolute;
+  z-index: 5;
+  background: rgba(13, 13, 15, 0.85);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 0.8rem 1.2rem;
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+}
+
+.info-num {
+  font-family: var(--font-accent);
+  font-size: var(--texto-sm);
+  color: var(--color-identidad);
+  margin-bottom: 0.2rem;
+}
+
+.meditation-info-item strong {
+  font-family: var(--font-body);
+  font-size: var(--texto-md);
+  color: var(--texto);
+  font-weight: 700;
+}
+
+.item-bottom-left {
+  bottom: 35px;
+  left: 35px;
+}
+
+.item-bottom-right {
+  bottom: 35px;
+  right: 35px;
+  align-items: flex-end;
+}
+
+/* Botón con acento Amarillo */
+.btn-meditation {
+  display: inline-block;
+  margin-top: 0.4rem;
+  padding: 0.3rem 0.8rem;
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: var(--texto-sm);
+  color: var(--color-identidad);
+  background: rgba(255, 210, 31, 0.1);
+  border: 1px solid var(--color-identidad);
+  border-radius: 4px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.btn-meditation:hover {
+  background: var(--color-identidad);
+  color: #000000;
+  box-shadow: 0 0 15px rgba(255, 210, 31, 0.8);
+}
+
+/* Responsivo */
+@media (max-width: 900px) {
+  .meditation-frame {
+    height: auto;
+    flex-direction: column;
+    padding: 4rem 1.5rem 2rem 1.5rem;
+    clip-path: none;
+  }
+
+  .meditation-card, .meditation-info-item {
+    position: relative;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    max-width: 100%;
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+
+  .meditation-title {
+    position: relative;
+    top: 0;
+    left: 0;
+    transform: none;
+    margin: 1rem 0;
+    font-size: var(--texto-lg);
+    letter-spacing: 8px;
+  }
+}
+
+/* ==========================================================================
+   SECCIÓN 3: UNIT SCANNER / ROSTER PICKS (INCLINADO & FLIP 3D CORREGIDO)
+   ========================================================================== */
+.members-preview-section {
+  position: relative;
+  width: 100%;
+  padding: 4rem 2rem;
+  background-color: var(--bg-principal, #070709);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
+}
+
+/* Encabezado: Separación amplia */
+.members-header {
+  text-align: center;
+  margin-bottom: 3.8rem;
+  z-index: 2;
+  position: relative;
+}
+
+.members-header .section-tag {
+  font-family: var(--font-accent, 'Share Tech Mono', monospace);
+  font-size: 0.85rem;
+  color: var(--color-identidad, #ffd21f);
+  letter-spacing: 2px;
+  display: block;
+  margin-bottom: 0.4rem;
+}
+
+.members-header .section-title {
+  font-family: var(--font-heading, 'Press Start 2P', monospace);
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  color: #ffffff;
+  margin: 0;
+  text-shadow: 0 0 15px rgba(255, 210, 31, 0.4);
+}
+
+/* Contenedor Principal del Roster */
+.roster-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  max-width: 1350px;
+  width: 100%;
+  z-index: 2;
+  margin-bottom: 2.5rem;
+}
+
+/* Filas de 5 miembros */
+.roster-row {
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+  width: 100%;
+}
+
+/* 🎯 TARJETA PRINCIPAL (PERSPECTIVA 3D E INCLINACIÓN) */
+.roster-card {
+  flex: 1;
+  max-width: 240px;
+  height: 320px;
+  position: relative;
+  perspective: 1000px; /* Perspectiva para el giro 3D */
+  transform: skewX(-12deg);
+  transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  cursor: pointer;
+}
+
+.roster-card:hover {
+  transform: skewX(-12deg) translateY(-8px);
+  z-index: 10;
+}
+
+/* CONTENEDOR 3D FLIPPER */
+.roster-flipper {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1);
+  border: 2px solid rgba(255, 210, 31, 0.25);
+  border-radius: 4px;
+  background: var(--bg-secundario, #0e0e12);
+}
+
+.roster-card:hover .roster-flipper {
+  transform: rotateY(180deg);
+  border-color: var(--color-identidad, #ffd21f);
+  box-shadow: 0 0 25px rgba(255, 210, 31, 0.45);
+}
+
+/* CARAS DELANTE Y DETRÁS */
+.roster-face {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+  border-radius: 2px;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.roster-front {
+  z-index: 2;
+  transform: rotateY(0deg);
+}
+
+.roster-back {
+  z-index: 1;
+  transform: rotateY(180deg);
+}
+
+/* DES-INCLINACIÓN INTERNA */
+.roster-skew-inner {
+  width: 140%;
+  height: 100%;
+  margin-left: -20%;
+  transform: skewX(12deg);
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+/* IMÁGENES DE CADA CARA */
+.roster-img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  filter: grayscale(80%) contrast(115%);
+  transition: filter 0.3s ease;
+}
+
+.roster-front .roster-img {
+  filter: grayscale(80%) contrast(115%);
+}
+
+.roster-back .roster-img {
+  filter: grayscale(0%) contrast(110%); /* La parte trasera se ve a full color directamente */
+}
+
+/* SOMBRA E INTEGRACIÓN INFERIOR */
+.roster-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom, rgba(0,0,0,0) 45%, rgba(10, 10, 14, 0.95) 100%);
+  z-index: 1;
+}
+
+/* NOMBRE */
+.roster-name {
+  position: relative;
+  z-index: 2;
+  font-family: var(--font-body, 'Rajdhani', sans-serif);
+  font-weight: 700;
+  font-size: 1.15rem;
+  color: #ffffff;
+  letter-spacing: 2px;
+  margin-bottom: 1.2rem;
+  text-align: center;
+  text-transform: uppercase;
+  transition: color 0.3s ease;
+}
+
+.roster-card:hover .roster-name {
+  color: var(--color-identidad, #ffd21f);
+  text-shadow: 0 0 10px rgba(255, 210, 31, 0.8);
+}
+
+/* FOOTER */
+.members-footer {
+  z-index: 2;
+  margin-top: 1rem;
+}
+
+/* RESPONSIVO */
+@media (max-width: 900px) {
+  .members-header {
+    margin-bottom: 2rem;
+  }
+
+  .roster-row {
+    flex-wrap: wrap;
+    gap: 15px;
+  }
+  
+  .roster-card {
+    flex: 0 0 calc(50% - 15px);
+    transform: none;
+  }
+
+  .roster-card:hover {
+    transform: translateY(-5px);
+  }
+  
+  .roster-skew-inner {
+    width: 100%;
+    margin-left: 0;
+    transform: none;
+  }
 }
