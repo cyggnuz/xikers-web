@@ -1,0 +1,414 @@
+/* ==========================================================================
+   📱 ESTILOS BASE / MOBILE (Por defecto)
+   ========================================================================== */
+:root {
+  --font-pixel: var(--font-accent); /* Mapea a tu fuente pixelada/arcade */
+}
+
+.hero-card {
+  position: relative;
+  overflow: hidden;
+  margin-block: var(--espacio-md);
+  border: 1px solid var(--bg-secundario);
+  border-radius: 24px;
+  background-color: var(--bg-secundario);
+  display: flex;
+  flex-direction: column;
+}
+
+.hero-data-side {
+  padding: var(--espacio-md);
+  order: 2; /* Texto abajo en mobile */
+  display: flex;
+  flex-direction: column;
+  gap: var(--espacio-md);
+}
+
+/* Selector de miembros en mobile */
+.hero-control-header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espacio-xs);
+}
+
+.hero-switch-label {
+  font-family: monospace;
+  font-size: var(--texto-sm);
+  color: var(--color-identidad);
+  font-weight: bold;
+}
+
+.hero-switcher {
+  display: flex;
+  gap: var(--espacio-xs);
+  overflow-x: auto;
+  padding-bottom: var(--espacio-xs);
+}
+
+.hero-switcher__avatar {
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 2px solid transparent;
+  background-color: var(--bg-principal);
+}
+
+.hero-switcher__avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.hero-switcher__avatar.active {
+  border-color: var(--color-identidad);
+}
+
+/* Nombre */
+.hero-name {
+  font-size: clamp(2.5rem, 8vw, 4rem);
+  line-height: 0.95;
+  color: var(--texto);
+  -webkit-text-stroke: 2px var(--color-identidad);
+}
+
+.hero-subtitle {
+  font-size: var(--texto-md);
+  color: #8e8e93;
+  text-transform: uppercase;
+  margin-top: var(--espacio-xs);
+}
+
+/* Atributos / Badges */
+.hero-attributes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--espacio-xs);
+}
+
+.attr-badge {
+  padding: 0.3rem 0.8rem;
+  font-size: var(--texto-xs);
+  font-weight: 700;
+  text-transform: uppercase;
+  border-radius: 4px;
+  border: 1px solid transparent;
+}
+
+.position-badge {
+  background-color: rgba(255, 210, 31, 0.15);
+  color: var(--color-identidad);
+  border-color: var(--color-identidad);
+}
+
+.age-badge {
+  background-color: rgba(20, 125, 255, 0.15);
+  color: var(--color-lore);
+  border-color: var(--color-lore);
+}
+
+.birthday-badge {
+  background-color: rgba(230, 57, 70, 0.2);
+  color: #E63946;
+  border-color: #E63946;
+  animation: pulse 1.5s infinite;
+}
+
+/* Bio */
+.hero-bio-card p {
+  font-size: var(--texto-sm);
+  line-height: 1.6;
+  color: #DBDBDB;
+}
+
+/* Zona Visual Mobile */
+.hero-visual-side {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  background-color: var(--bg-principal);
+  order: 1; /* Foto arriba en mobile */
+  overflow: hidden;
+}
+
+.hero-bg-text {
+  display: none; /* Solo para pantallas grandes */
+}
+
+.hero-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 15%;
+}
+
+
+/* ==========================================================================
+   💻 INTERFAZ LISTA DE INTEGRANTES ESTILO ARKNIGHTS / XIKERS (ESCRITORIO)
+   ========================================================================== */
+@media (min-width: 1024px) {
+  /* ---------- INTEGRACIÓN CON EL LAYOUT GLOBAL ---------- */
+  .navbar {
+    --navbar-border: none; 
+    background-color: #0d0d0f; 
+  }
+
+  .sidebar {
+    display: none !important;
+  }
+
+  /* ---------- CONTENEDOR DE LA LISTA ---------- */
+  .ark-list-container {
+    display: flex;
+    flex-direction: column;
+    gap: 40px; 
+    padding: var(--espacio-xl) 0;
+    align-items: center;
+    
+    width: calc(100vw - 10px);
+    margin-inline: calc(-50vw + 50%);
+    padding-inline: calc(50vw - 50%);
+
+    background-color: transparent; 
+    background-image: radial-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+    background-size: 14px 14px;
+  }
+
+  /* ---------- ESTRUCTURA DE LA TARJETA ---------- */
+  .ark-card {
+    display: grid;
+    grid-template-columns: 160px 1fr; 
+    gap: 30px; 
+    width: 100%;
+    max-width: 1150px;
+    height: 380px; 
+    background-color: transparent; 
+    position: relative;
+
+    margin-bottom: 100px;
+  }
+
+  /* ---------- COLUMNA IZQUIERDA (FICHA TÉCNICA) ---------- */
+  .ark-specs-side {
+    margin: 0; 
+    padding: var(--espacio-md);
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    outline: 1px solid rgba(255, 255, 255, 0.06);
+    outline-offset: 4px;
+    background-color: rgba(20, 20, 23, 0.15);
+    height: 100%;
+  }
+
+  .ark-number {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: #ffffff;
+    letter-spacing: -1px;
+    line-height: 1;
+    margin-bottom: var(--espacio-xs);
+  }
+
+  .ark-spec-box {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .ark-label {
+    font-size: 0.65rem;
+    color: #7a7a82; 
+    text-transform: uppercase;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+  }
+
+  .ark-value {
+    font-size: var(--texto-sm);
+    color: #ffffff; 
+    font-weight: 600;
+  }
+
+  .ark-mini-thumb {
+    margin-top: auto; 
+    width: 100%; 
+    aspect-ratio: 1 / 1;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    background-color: #0d0d0f;
+    padding: 4px; 
+  }
+
+  .ark-mini-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  /* ---------- COLUMNA DERECHA (BANNER GRÁFICO) ---------- */
+  .ark-visual-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background-color: var(--bg-principal);
+    background-image: radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+    background-size: 16px 16px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.08); 
+  }
+
+  /* Bloque de color dinámico (Rojo) a la izquierda */
+  .ark-visual-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 65%;
+    height: 100%;
+    background: linear-gradient(160deg, var(--member-color) 0%, transparent 70%);
+    clip-path: polygon(0 0, 100% 0, 82% 100%, 0 100%);
+    opacity: 0.35;
+    mix-blend-mode: screen;
+    z-index: 1;
+  }
+
+  /* 🖼️ MARCO PNG */
+  .ark-frame-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 3; 
+    pointer-events: none;
+    background-image: url('/media/members/MARCO.png');
+    background-size: 100% 100%; 
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+
+  /* 🔤 NOMBRE GIGANTE DE FONDO (CENTRADO PERFECTO Y MÁXIMA PRIORIDAD) */
+/* 🔤 NOMBRE GIGANTE CENTRADO EN TODO EL MARCO (Y SOBRE TODO) */
+/* 🔤 NOMBRE GIGANTE (Posicionado a la derecha del área futura) */
+
+/* 🖼️ ZONA DE FOTO / MARCO SECUNDARIO (Espacio Blanco Izquierdo) */
+.ark-secondary-zone {
+    position: absolute;
+    
+    /* 📐 Calibración para centrarla en la zona blanca izquierda */
+    left: 6%;
+    top: 50%;
+    transform: translateY(-50%);
+    
+    width: 24%;  /* Ancho para ocupar la franja azul de tu maqueta */
+    height: 70%; /* Alto proporcional dentro del marco */
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    
+    border-radius: 12px; /* Opcional: para esquinas redondeadas como tu boceto */
+    pointer-events: none;
+    
+    /* 🎯 CAPA: Queda abajo del texto (z-index: 20) y de Minjae (z-index: 5) */
+    z-index: 4; 
+}
+
+.ark-secondary-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Asegura que la imagen llene el recuadro sin deformarse */
+    display: block;
+}
+
+/* 🔤 ZONA DEL NOMBRE */
+.ark-name-zone {
+    position: absolute;
+
+    /* Ajusta únicamente la zona donde quieres centrar el nombre */
+    left: 35%;
+    top: 0;
+
+    width: 38%;
+    height: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    pointer-events: none;
+    z-index: 20;
+}
+
+/* 🔤 NOMBRE GIGANTE */
+.ark-big-bg-text {
+    position: relative;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 100%;
+    height: 100%;
+
+    margin: 0;
+    padding: 0;
+
+    /* EXACTAMENTE los mismos valores que tenías originalmente */
+    font-family: var(--font-body);
+    font-weight: 900;
+    font-size: clamp(4.5rem, 10vw, 8.5rem);
+    letter-spacing: -2px;
+    line-height: 0.8;
+    text-transform: uppercase;
+
+    color: #ffffff;
+    opacity: 0.5;
+    -webkit-text-stroke: 1.5px rgba(0, 0, 0, 0.7); /* Borde oscuro bien marcado */
+    mix-blend-mode: difference;
+
+    
+    text-align: center;
+    white-space: nowrap;
+
+    transform: scaleY(1.3);
+
+    pointer-events: none;
+    user-select: none;
+}
+
+  /* 👤 RENDER DEL INTEGRANTE */
+  .ark-member-render {
+    position: absolute;
+    right: 15%; 
+    height: 115%; 
+    width: auto;
+    object-fit: contain;
+    bottom: -15px; 
+    z-index: 5; 
+    filter: drop-shadow(-20px 15px 30px rgba(0, 0, 0, 0.9));
+  }
+}
+
+/* Contenedor general */
+.container {
+    max-width: 100% !important;
+    padding-inline: 0 !important;
+}
+
+.ark-ghost-render {
+    position: absolute;
+    right: -5%;
+    height: 140%;
+    width: auto;
+    object-fit: contain;
+    bottom: -10%;
+    opacity: 0.12;
+    filter: blur(2px) grayscale(1);
+    transform: scale(1.15);
+    z-index: 3;
+  }

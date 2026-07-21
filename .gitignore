@@ -21,3 +21,6 @@ __pycache__/
 
 # Archivos estáticos recolectados (se generan, no se escriben a mano)
 staticfiles/
+
+# Archivos media subidos por el admin
+media/

@@ -1,0 +1,36 @@
+/*
+variables.css
+Variables globales del sitio: colores, tipografías y espaciados.
+Este archivo NO tiene estilos visuales directos, solo define valores
+que los demás CSS (base.css y los de cada sección) van a reutilizar
+con var(--nombre-variable). Así, si cambias un color aquí, se actualiza
+en todo el sitio automáticamente.
+*/
+
+:root {
+  /* Colores - paleta oficial xikers (lightstick + identidad) */
+  --bg-principal: #0D0D0F;      /* fondo general del sitio */
+  --bg-secundario: #1A1A1F;     /* fondo de tarjetas, secciones */
+  --texto: #F5F5F5;             /* texto principal sobre fondo oscuro */
+  --color-identidad: #FFD21F;   /* amarillo, color oficial del grupo */
+  --color-lore: #147DFF;        /* azul, para secciones de lore/misterio */
+  --color-alerta: #E63946;      /* rojo, para acciones/alertas puntuales */
+
+  /* Tipografía - máximo 3 fuentes en todo el sitio */
+  --font-heading: 'Press Start 2P', monospace; /* estilo 8-bit, solo para títulos grandes */
+  --font-body: 'Rajdhani', sans-serif;         /* estilo cyberpunk, texto general */
+  --font-accent: 'Share Tech Mono', monospace; /* reservada: fechas, IDs, datos tipo "ficha" */
+
+  /* Tamaños de letra - máximo 3 tamaños en todo el sitio.
+     clamp(mínimo, preferido, máximo) = el texto escala solo según
+     el ancho de pantalla, sin necesidad de media queries repetidas. */
+  --texto-sm: clamp(0.85rem, 0.8rem + 0.3vw, 1rem);     /* texto secundario, notas */
+  --texto-md: clamp(1rem, 0.9rem + 0.5vw, 1.25rem);     /* texto de párrafo normal */
+  --texto-lg: clamp(1.5rem, 1.2rem + 1.5vw, 2.5rem);    /* títulos de sección */
+
+  /* Espaciados reutilizables */
+  --espacio-xs: 0.5rem;
+  --espacio-sm: 1rem;
+  --espacio-md: 2rem;
+  --espacio-lg: 4rem;
+}

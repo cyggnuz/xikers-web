@@ -1,0 +1,179 @@
+/*
+base.css
+Estilos generales que aplican a TODO el sitio, sin importar la sección.
+Depende de variables.css (debe cargarse antes que este archivo en el HTML).
+Contiene: reset, tipografía base, navbar, y estructura de layout responsivo.
+
+Enfoque mobile-first: los estilos base son para pantallas chicas,
+y las media queries van "hacia arriba" (min-width) agregando ajustes
+para pantallas más grandes. Esto evita pelear contra estilos de desktop
+al achicar la pantalla.
+*/
+
+/* ---------- RESET BÁSICO ---------- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; /* el padding/border no suman al ancho total, evita cálculos raros */
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* ---------- TIPOGRAFÍA BASE ---------- */
+body {
+  background-color: var(--bg-principal);
+  color: var(--texto);
+  font-family: var(--font-body);
+  font-size: var(--texto-md);
+  line-height: 1.5;
+  min-height: 100vh;
+}
+
+h1, h2, h3 {
+  font-family: var(--font-heading);
+  line-height: 1.3;
+}
+
+h1 {
+  font-size: var(--texto-lg);
+}
+
+h2, h3 {
+  font-size: var(--texto-md);
+}
+
+p, span, a, li {
+  font-size: var(--texto-md);
+}
+
+small, .texto-secundario {
+  font-size: var(--texto-sm);
+}
+
+a {
+  color: var(--color-identidad);
+  text-decoration: none;
+}
+
+a:hover {
+  opacity: 0.8;
+}
+
+img {
+  max-width: 100%;
+  display: block; /* evita espacio fantasma debajo de las imágenes */
+}
+
+/* ---------- CONTENEDOR GENERAL ---------- */
+/* Envuelve el contenido de cada sección para mantener márgenes
+   consistentes en todo el sitio, sin repetir esto en cada CSS de sección. */
+.container {
+  width: 100%;
+  padding-inline: var(--espacio-sm);
+  margin-inline: auto;
+}
+
+@media (min-width: 768px) {
+  .container {
+    max-width: 720px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container {
+    max-width: 960px;
+    padding-inline: var(--espacio-md);
+  }
+}
+
+@media (min-width: 1280px) {
+  .container {
+    max-width: 1200px;
+  }
+}
+
+/* ---------- NAVBAR ---------- */
+.navbar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--espacio-sm);
+  padding: var(--espacio-sm) var(--espacio-md);
+  background-color: var(--bg-secundario);
+  border-bottom: var(--navbar-border, 2px solid var(--color-identidad));
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.navbar__brand a {
+  font-family: var(--font-heading);
+  font-size: var(--texto-md);
+  color: var(--color-identidad);
+  letter-spacing: 1px;
+}
+
+.navbar__links {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--espacio-sm);
+  width: 100%;
+  list-style: none;
+}
+
+.navbar__links a {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: var(--texto-sm);
+  color: var(--texto);
+  padding: var(--espacio-xs) var(--espacio-sm);
+  border-radius: 4px;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.navbar__links a:hover {
+  background-color: var(--bg-principal);
+  color: var(--color-identidad);
+  opacity: 1;
+}
+
+.navbar__links a.active {
+  color: var(--color-identidad);
+  border-bottom: 2px solid var(--color-identidad);
+}
+
+@media (min-width: 768px) {
+  .navbar {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .navbar__links {
+    flex-direction: row;
+    width: auto;
+    gap: var(--espacio-md);
+  }
+}
+/* ---------- SIDEBAR ---------- */
+/* Mobile: el sidebar se oculta y se maneja como menú desplegable
+   (la lógica de abrir/cerrar la resolvemos con JS más adelante).
+   Desktop: se muestra fijo al costado. */
+.sidebar {
+  display: none;
+}
+
+@media (min-width: 1024px) {
+  .sidebar {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    right: 0;
+    top: 0;
+    height: 100vh;
+    width: 80px;
+    background-color: var(--bg-secundario);
+  }
+}
