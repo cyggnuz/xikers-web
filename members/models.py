@@ -18,15 +18,24 @@ class Member(models.Model):
     position = models.CharField(max_length=100, blank=True)
 
     # Foto principal subida y almacenada en el servidor (se guarda en media/members/)
-    # Se recorta antes de subir para que encaje con las medidas de la tarjeta
+    # Este es el RENDER grande que aparece a la derecha.
     photo = models.ImageField(upload_to='members/', blank=True)
 
-    # 🖼️ Foto/Marco secundario para la zona blanca izquierda de la tarjeta
+    # 🖼️ Foto cuadrada para la ficha técnica (columna izquierda)
+    # Esta es la que marcaste en la imagen. Se guarda en media/members/thumbnails/
+    thumbnail_photo = models.ImageField(
+        upload_to='members/thumbnails/', 
+        blank=True, 
+        null=True,
+        help_text="Foto cuadrada pequeña para la ficha de la izquierda."
+    )
+
+    # 🖼️ Foto/Marco secundario para la zona blanca izquierda de la tarjeta (gráfica de fondo)
     secondary_photo = models.ImageField(
         upload_to='members/secondary/', 
         blank=True, 
         null=True,
-        help_text="Imagen o detalle para el espacio recuadrado a la izquierda"
+        help_text="Imagen o detalle para el espacio recuadrado a la izquierda (gráfica de fondo)"
     )
 
     # Texto corto para la ficha

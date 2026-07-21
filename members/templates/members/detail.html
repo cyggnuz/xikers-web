@@ -10,7 +10,8 @@
 {% block content %}
 <div class="ark-list-container">
     {% for member in all_members %}
-    <div class="ark-card" style="--member-color: {{ member.favorite_color }};">
+    <!-- 🆔 ID añadido para la navegación flotante -->
+    <div class="ark-card" id="member-{{ forloop.counter }}" style="--member-color: {{ member.favorite_color }};">
 
         <!-- COLUMNA IZQUIERDA -->
         <div class="ark-specs-side">
@@ -41,8 +42,12 @@
                 <span class="ark-value">LVL {{ member.age }}</span>
             </div>
 
+            <!-- 🖼️ MINIATURA EDITABLE DE LA FICHA TÉCNICA -->
             <div class="ark-mini-thumb">
-                {% if member.photo %}
+                {% if member.thumbnail_photo %}
+                    <img src="{{ member.thumbnail_photo.url }}" alt="{{ member.stage_name }}">
+                {% elif member.photo %}
+                    <!-- Fallback: si no subiste miniatura, usa la foto principal -->
                     <img src="{{ member.photo.url }}" alt="{{ member.stage_name }}">
                 {% endif %}
             </div>
@@ -54,7 +59,7 @@
 
             <div class="ark-frame-overlay"></div>
 
-            <!-- 🖼️ NUEVO: FOTO / MARCO SECUNDARIO (Se muestra si existe en el Admin) -->
+            <!-- 🖼️ FOTO / MARCO SECUNDARIO (Se muestra si existe en el Admin) -->
             {% if member.secondary_photo %}
             <div class="ark-secondary-zone">
                 <img src="{{ member.secondary_photo.url }}" class="ark-secondary-img" alt="Detalle {{ member.stage_name }}">
@@ -85,4 +90,17 @@
     </div>
     {% endfor %}
 </div>
+
+<!-- 🧭 MENÚ FLOTANTE NAVEGADOR VERTICAL -->
+<nav class="ark-quick-nav">
+  <ul>
+    {% for member in all_members %}
+      <li>
+        <a href="#member-{{ forloop.counter }}" title="{{ member.stage_name }}">
+          #0{{ forloop.counter }}
+        </a>
+      </li>
+    {% endfor %}
+  </ul>
+</nav>
 {% endblock %}

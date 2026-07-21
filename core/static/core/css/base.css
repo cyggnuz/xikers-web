@@ -29,6 +29,7 @@ body {
   font-size: var(--texto-md);
   line-height: 1.5;
   min-height: 100vh;
+  overflow-x: hidden; /* 🎯 Evita scrollbar horizontal si la imagen sobrepasa el ancho */
 }
 
 h1, h2, h3 {
@@ -101,11 +102,16 @@ img {
   align-items: center;
   gap: var(--espacio-sm);
   padding: var(--espacio-sm) var(--espacio-md);
-  background-color: var(--bg-secundario);
-  border-bottom: var(--navbar-border, 2px solid var(--color-identidad));
-  position: sticky;
+  
+  /* 🎯 AJUSTES PARA TRANSPARENCIA Y SUPERPOSICIÓN EN EL HERO */
+  position: fixed; /* Flota sobre el contenido */
   top: 0;
-  z-index: 100;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  /* Degradado sutil de negro transparente a transparente puro para dar legibilidad sin cortar la imagen */
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0) 100%);
+  border-bottom: none; /* Quitamos el borde sólido por defecto */
 }
 
 .navbar__brand a {
@@ -135,7 +141,7 @@ img {
 }
 
 .navbar__links a:hover {
-  background-color: var(--bg-principal);
+  background-color: rgba(255, 255, 255, 0.1); /* Efecto hover adaptado a fondo oscuro transparente */
   color: var(--color-identidad);
   opacity: 1;
 }
@@ -149,6 +155,7 @@ img {
   .navbar {
     flex-direction: row;
     justify-content: space-between;
+    padding: var(--espacio-md) var(--espacio-lg); /* Más espacio a los lados en desktop */
   }
 
   .navbar__links {
@@ -157,10 +164,8 @@ img {
     gap: var(--espacio-md);
   }
 }
+
 /* ---------- SIDEBAR ---------- */
-/* Mobile: el sidebar se oculta y se maneja como menú desplegable
-   (la lógica de abrir/cerrar la resolvemos con JS más adelante).
-   Desktop: se muestra fijo al costado. */
 .sidebar {
   display: none;
 }
@@ -174,6 +179,8 @@ img {
     top: 0;
     height: 100vh;
     width: 80px;
-    background-color: var(--bg-secundario);
+    background-color: transparent; /* 🎯 Cambiado de var(--bg-secundario) a transparent */
+    pointer-events: none; /* Permite hacer clic en lo que está detrás si está vacía */
+    z-index: 900;
   }
 }

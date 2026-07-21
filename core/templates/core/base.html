@@ -24,7 +24,8 @@
     </div>
     <ul class="navbar__links">
       <li><a href="{% url 'core:home' %}">Home</a></li>
-      <li><a href="#">Members</a></li>
+      <!-- 🎯 CAMBIO AQUÍ: 'members:list' en lugar de 'members' -->
+      <li><a href="{% url 'members:list' %}">Members</a></li>
       <li><a href="#">Discography</a></li>
       <li><a href="#">Lore</a></li>
     </ul>
@@ -33,7 +34,7 @@
   <aside class="sidebar">
   </aside>
 
-  <main class="container">
+  <main>
     {% block content %}
     {% endblock %}
   </main>
