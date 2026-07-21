@@ -9,5 +9,9 @@ urlpatterns = [
     path('members/', include('members.urls')),
 ]
 
+# Servir archivos media (fotos subidas desde el admin)
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+# Servir archivos estáticos en modo desarrollo si fuera necesario
 if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
