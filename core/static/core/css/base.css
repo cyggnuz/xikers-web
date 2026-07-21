@@ -1,27 +1,26 @@
 /*
 base.css
-Estilos generales que aplican a TODO el sitio, sin importar la sección.
-Depende de variables.css (debe cargarse antes que este archivo en el HTML).
-Contiene: reset, tipografía base, navbar, y estructura de layout responsivo.
-
-Enfoque mobile-first: los estilos base son para pantallas chicas,
-y las media queries van "hacia arriba" (min-width) agregando ajustes
-para pantallas más grandes. Esto evita pelear contra estilos de desktop
-al achicar la pantalla.
+Estilos generales globales.
+Depende de variables.css (cargado previamente en base.html).
 */
 
-/* ---------- RESET BÁSICO ---------- */
+/* ---------- RESET BÁSICO Y FLUIDEZ GLOBAL ---------- */
 * {
   margin: 0;
   padding: 0;
-  box-sizing: border-box; /* el padding/border no suman al ancho total, evita cálculos raros */
+  box-sizing: border-box;
 }
 
 html {
   scroll-behavior: smooth;
 }
 
-/* ---------- TIPOGRAFÍA BASE ---------- */
+html, body {
+  width: 100%;
+  max-width: 100vw;
+  overflow-x: hidden; /* Evita cualquier scrollbar horizontal molesta */
+}
+
 body {
   background-color: var(--bg-principal);
   color: var(--texto);
@@ -29,29 +28,25 @@ body {
   font-size: var(--texto-md);
   line-height: 1.5;
   min-height: 100vh;
-  overflow-x: hidden; /* 🎯 Evita scrollbar horizontal si la imagen sobrepasa el ancho */
+  display: flex;
+  flex-direction: column;
+}
+main {
+  width: 100%;
+  padding-top: 80px; /* 60px de la altura del navbar + 20px de respiro visual */
+  flex: 1; /* Hace que el main tome el espacio disponible y mantenga el footer abajo */
 }
 
+/* ---------- TIPOGRAFÍA BASE ---------- */
 h1, h2, h3 {
   font-family: var(--font-heading);
   line-height: 1.3;
 }
 
-h1 {
-  font-size: var(--texto-lg);
-}
-
-h2, h3 {
-  font-size: var(--texto-md);
-}
-
-p, span, a, li {
-  font-size: var(--texto-md);
-}
-
-small, .texto-secundario {
-  font-size: var(--texto-sm);
-}
+h1 { font-size: var(--texto-lg); }
+h2, h3 { font-size: var(--texto-md); }
+p, span, a, li { font-size: var(--texto-md); }
+small, .texto-secundario { font-size: var(--texto-sm); }
 
 a {
   color: var(--color-identidad);
@@ -62,14 +57,15 @@ a:hover {
   opacity: 0.8;
 }
 
-img {
+/* Regla fluida estilo YouTube para imágenes */
+img, video, iframe {
   max-width: 100%;
-  display: block; /* evita espacio fantasma debajo de las imágenes */
+  height: auto;
+  display: block;
+  object-fit: contain;
 }
 
 /* ---------- CONTENEDOR GENERAL ---------- */
-/* Envuelve el contenido de cada sección para mantener márgenes
-   consistentes en todo el sitio, sin repetir esto en cada CSS de sección. */
 .container {
   width: 100%;
   padding-inline: var(--espacio-sm);
@@ -77,9 +73,7 @@ img {
 }
 
 @media (min-width: 768px) {
-  .container {
-    max-width: 720px;
-  }
+  .container { max-width: 720px; }
 }
 
 @media (min-width: 1024px) {
@@ -90,60 +84,63 @@ img {
 }
 
 @media (min-width: 1280px) {
-  .container {
-    max-width: 1200px;
-  }
+  .container { max-width: 1200px; }
 }
 
-/* ---------- NAVBAR ---------- */
+/* ---------- NAVBAR UNIFICADA (RESPONSIVE & TRANSPARENTE) ---------- */
 .navbar {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--espacio-sm);
-  padding: var(--espacio-sm) var(--espacio-md);
-  
-  /* 🎯 AJUSTES PARA TRANSPARENCIA Y SUPERPOSICIÓN EN EL HERO */
-  position: fixed; /* Flota sobre el contenido */
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
+  height: 60px; /* Altura estándar fija */
   z-index: 1000;
-  /* Degradado sutil de negro transparente a transparente puro para dar legibilidad sin cortar la imagen */
-  background: linear-gradient(180deg, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0) 100%);
-  border-bottom: none; /* Quitamos el borde sólido por defecto */
+  background: rgba(10, 10, 12, 0.65) !important;
+  backdrop-filter: blur(8px);
+  padding: 0 2rem;
+  
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .navbar__brand a {
-  font-family: var(--font-heading);
-  font-size: var(--texto-md);
-  color: var(--color-identidad);
+  font-family: 'Press Start 2P', monospace;
+  font-size: 1.1rem;
+  color: #ba55d3;
+  text-decoration: none;
   letter-spacing: 1px;
 }
 
 .navbar__links {
   display: flex;
-  flex-direction: column;
+  flex-direction: row; /* Siempre en fila horizontal */
   align-items: center;
-  gap: var(--espacio-sm);
-  width: 100%;
+  gap: 1.8rem;
   list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
 .navbar__links a {
-  font-family: var(--font-body);
-  font-weight: 600;
-  font-size: var(--texto-sm);
-  color: var(--texto);
-  padding: var(--espacio-xs) var(--espacio-sm);
+  color: #ffffff;
+  text-decoration: none;
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 700;
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: color 0.2s ease, background-color 0.2s ease;
+  padding: 0.3rem 0.6rem;
   border-radius: 4px;
-  transition: background-color 0.2s ease, color 0.2s ease;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+  white-space: nowrap;
 }
 
 .navbar__links a:hover {
-  background-color: rgba(255, 255, 255, 0.1); /* Efecto hover adaptado a fondo oscuro transparente */
+  background-color: rgba(255, 255, 255, 0.1);
   color: var(--color-identidad);
-  opacity: 1;
 }
 
 .navbar__links a.active {
@@ -151,17 +148,23 @@ img {
   border-bottom: 2px solid var(--color-identidad);
 }
 
-@media (min-width: 768px) {
+/* Ajustes compactos para pantallas móviles sin desarmar la fila */
+@media (max-width: 768px) {
   .navbar {
-    flex-direction: row;
-    justify-content: space-between;
-    padding: var(--espacio-md) var(--espacio-lg); /* Más espacio a los lados en desktop */
+    padding: 0 1rem;
   }
 
   .navbar__links {
-    flex-direction: row;
-    width: auto;
-    gap: var(--espacio-md);
+    gap: 0.8rem;
+  }
+
+  .navbar__links a {
+    font-size: 0.8rem;
+    padding: 0.2rem 0.4rem;
+  }
+  
+  .navbar__brand a {
+    font-size: 0.95rem;
   }
 }
 
@@ -179,8 +182,50 @@ img {
     top: 0;
     height: 100vh;
     width: 80px;
-    background-color: transparent; /* 🎯 Cambiado de var(--bg-secundario) a transparent */
-    pointer-events: none; /* Permite hacer clic en lo que está detrás si está vacía */
+    background-color: transparent;
+    pointer-events: none;
     z-index: 900;
   }
+}
+
+/* ---------- FOOTER COMPACTO & MINIMALISTA ---------- */
+.footer {
+  width: 100%;
+  background-color: #060608;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  padding: 0.8rem 1.5rem;
+  position: relative;
+  z-index: 10;
+  margin-top: auto; /* Empuja el footer al final de la página */
+}
+
+.footer__container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3rem;
+  text-align: center;
+}
+
+.footer__disclaimer {
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  color: #555560;
+  line-height: 1.3;
+  max-width: 800px;
+}
+
+.footer__disclaimer strong {
+  color: #888895;
+  font-weight: 600;
+}
+
+.footer__copyright {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.65rem;
+  color: #333340;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }

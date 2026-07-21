@@ -3,8 +3,8 @@
 .hero-section {
     position: relative;
     width: 100%;
-    min-height: 100vh;
-    /* 🎯 Carga la imagen home.png que acabas de subir */
+    min-height: calc(100vh + 80px);
+    margin-top: -80px;
     background-image: url('../images/home.png');
     background-size: cover;
     background-position: center;

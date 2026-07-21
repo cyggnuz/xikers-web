@@ -147,7 +147,6 @@
 /* ==========================================================================
    💻 INTERFAZ LISTA DE INTEGRANTES ESTILO ARKNIGHTS / XIKERS (ESCRITORIO)
    ========================================================================== */
-@media (min-width: 1024px) {
   /* Scroll suave al hacer clic en los anchors del menú flotante */
   html {
     scroll-behavior: smooth;
@@ -163,23 +162,24 @@
     display: none !important;
   }
 
-  /* ---------- CONTENEDOR DE LA LISTA ---------- */
+/* ---------- CONTENEDOR DE LA LISTA ---------- */
   .ark-list-container {
     display: flex;
     flex-direction: column;
     gap: 40px; 
-    padding: var(--espacio-xl) 0;
     align-items: center;
     
-    width: calc(100vw - 10px);
-    margin-inline: calc(-50vw + 50%);
-    padding-inline: calc(50vw - 50%);
+    /* 🎯 100px arriba para despejar la navbar (60px de nav + 40px de espacio), 
+       padding lateral de 2rem y padding abajo */
+    padding: 100px 2rem var(--espacio-xl) 2rem;
+    
+    width: 100%;
+    max-width: 100vw;
 
     background-color: transparent; 
     background-image: radial-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px);
     background-size: 14px 14px;
   }
-
   /* ---------- ESTRUCTURA DE LA TARJETA ---------- */
   .ark-card {
     display: grid;
@@ -441,8 +441,8 @@
     border-color: rgba(255, 255, 255, 0.3);
     transform: translateX(-3px);
   }
-}
 
+  
 /* Ocultar barra flotante en móviles */
 @media (max-width: 1023px) {
   .ark-quick-nav {
@@ -454,4 +454,55 @@
 .container {
   max-width: 100% !important;
   padding-inline: 0 !important;
+}
+
+/* ---------- MANTENER DISEÑO Y ESCALAR ELEMENTOS ---------- */
+
+/* 1. Asegurar que el contenedor use el ancho relativo disponible */
+.member-container, 
+.members-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 100vw;
+  padding-top: 80px; /* Despeje para el navbar transparente */
+  box-sizing: border-box;
+  overflow-x: hidden; /* Evita que aparezca la barra de desplazamiento horizontal */
+}
+
+/* 2. Las imágenes se escalan según la pantalla, NUNCA sobrepasan su contenedor */
+.member-photo img, 
+.members-list img,
+img {
+  max-width: 100%;
+  height: auto;       /* Mantiene la proporción de aspecto sin deformar */
+  object-fit: contain; /* Encaja la foto sin recortarla ni hacerle zoom enorme */
+}
+
+/* 3. Textos escalables proporcionalmente */
+.member-info h1, 
+.member-info h2 {
+  font-size: clamp(1.2rem, 3vw, 2.2rem); /* Se achica en pantallas chicas y se agranda en monitores */
+}
+
+.member-info p, 
+.member-info li {
+  font-size: clamp(0.85rem, 1.5vw, 1rem);
+}
+
+/* ---------- RESPONSIVE EXCLUSIVO PARA PANTALLAS PEQUEÑAS ---------- */
+/* No afecta en absoluto la vista en tu monitor normal (1280px para arriba) */
+
+@media (min-width: 768px) and (max-width: 1279px) {
+  /* Escala ligeramente la tarjeta para que quepa sin desbordar */
+  .ark-card {
+    transform: scale(0.85);
+    transform-origin: top center;
+    margin-bottom: -40px; /* Compensa el espacio del escalado */
+  }
+  
+  /* Ajusta la navegación rápida si la pantalla se reduce */
+  .ark-quick-nav {
+    right: 10px;
+    transform: translateY(-50%) scale(0.9);
+  }
 }
