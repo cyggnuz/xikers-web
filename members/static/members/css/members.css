@@ -317,7 +317,7 @@
     inset: 0;
     z-index: 3; 
     pointer-events: none;
-    background-image: url('/media/members/MARCO.png');
+    background-image: url('/static/members/images/MARCO.png');
     background-size: 100% 100%; 
     background-repeat: no-repeat;
     background-position: center;
@@ -442,7 +442,7 @@
     transform: translateX(-3px);
   }
 
-  
+
 /* Ocultar barra flotante en móviles */
 @media (max-width: 1023px) {
   .ark-quick-nav {
