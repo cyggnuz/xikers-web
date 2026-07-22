@@ -134,8 +134,17 @@ STATIC_URL = '/static/'
 # 🎯 Carpeta donde collectstatic junta todos los estáticos para Render
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
-# 🎯 Almacenamiento optimizado de WhiteNoise
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+# 🎯 Almacenamiento de archivos: estáticos por WhiteNoise, subidos (media) por Cloudinary.
+# Este es el punto único de configuración en Django 5.2 - reemplaza tanto a
+# STATICFILES_STORAGE como a DEFAULT_FILE_STORAGE (formato viejo, ya no se usan).
+STORAGES = {
+    "default": {
+        "BACKEND": "cloudinary_storage.storage.MediaCloudinaryStorage",
+    },
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    },
+}
 
 
 # Default primary key field type
@@ -152,5 +161,3 @@ CLOUDINARY_STORAGE = {
     'API_KEY': os.getenv('CLOUDINARY_API_KEY'),
     'API_SECRET': os.getenv('CLOUDINARY_API_SECRET'),
 }
-
-DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
