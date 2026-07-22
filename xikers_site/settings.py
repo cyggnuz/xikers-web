@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'cloudinary',
     'core',
     'members',
+    'music_bot',
 ]
 
 MIDDLEWARE = [
@@ -87,11 +88,14 @@ WSGI_APPLICATION = 'xikers_site.wsgi.application'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
 DATABASES = {
-    "default": dj_database_url.config(
-        default=f"sqlite:///{BASE_DIR / 'db.sqlite3'}",
-        conn_max_age=600,
-        conn_health_checks=True,
-    )
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'xikers_db',
+        'USER': 'xikers_db_user',
+        'PASSWORD': 'Mb56dCMUTN4GfXuaQUQcEiz6DCuRQssl',
+        'HOST': 'dpg-d9g2dm37uimc73e7ldng-a.ohio-postgres.render.com',
+        'PORT': '5432',
+    }
 }
 
 

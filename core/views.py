@@ -1,16 +1,36 @@
 from django.shortcuts import render
-from .models import Member  # Importamos el modelo de los integrantes
-
-# views.py
-# Vistas de la app core: la página de inicio y lo que sea compartido
-# por todo el sitio (por ahora, solo el home).
+from .models import Member
+from music_bot.models import Song
 
 
 def home(request):
     """Página de inicio: perfil básico del grupo y roster de integrantes."""
-    # Obtenemos los integrantes activos ordenados
-    members = Member.objects.filter(is_active=True).order_by('order')
-    
+
+    members = Member.objects.filter(
+        is_active=True
+    ).order_by(
+        'order'
+    )
+
+    songs = Song.objects.all().order_by(
+        'album',
+        'title'
+    )
+
     return render(request, 'core/home.html', {
-        'members': members
+        'members': members,
+        'songs': songs,
+    })
+
+
+def discography(request):
+    """Sección de discografía."""
+
+    songs = Song.objects.all().order_by(
+        'album',
+        'title'
+    )
+
+    return render(request, 'core/discography.html', {
+        'songs': songs,
     })

@@ -8,6 +8,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('core.urls')),
     path('members/', include('members.urls')),
+    path('bot/', include('music_bot.urls')),
     
     # 🎯 Fuerza la entrega de archivos subidos (/media/) en Render
     re_path(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),

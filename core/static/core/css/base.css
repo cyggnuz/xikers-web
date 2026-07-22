@@ -229,3 +229,320 @@ img, video, iframe {
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
+
+/* ==========================================================================
+   🐱 BOT MUSICAL KIMIKO - WIDGET FLOTANTE
+   ========================================================================== */
+
+/* Contenedor principal fijado a la derecha inferior */
+.kimiko-widget-container {
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+/* 🔘 Botón Lanzador (Burbuja) */
+.kimiko-launcher-btn {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-color: #0d0d0f;
+  border: 2px solid var(--color-identidad, #ff0055);
+  box-shadow: 0 8px 25px rgba(255, 0, 85, 0.4);
+  cursor: pointer;
+  position: relative;
+  padding: 0;
+  overflow: hidden;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.kimiko-launcher-btn:hover {
+  transform: scale(1.1) rotate(-5deg);
+  box-shadow: 0 10px 30px rgba(255, 0, 85, 0.7);
+}
+
+.kimiko-launcher-btn img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.launcher-badge {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  background: var(--color-identidad, #ff0055);
+  color: #fff;
+  font-size: 0.65rem;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+
+/* 🖼️ Ventana Desplegable del Chat */
+.kimiko-card {
+  background-color: #0d0d0f;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.kimiko-window {
+  width: 350px;
+  max-width: calc(100vw - 40px);
+  margin-bottom: 15px;
+  display: none; /* Se oculta por defecto */
+  animation: slideUp 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.kimiko-window.active {
+  display: flex;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Header de Kimiko */
+.kimiko-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 15px;
+  background-color: rgba(20, 20, 23, 0.8);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.kimiko-avatar-frame {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 2px solid var(--color-identidad, #ff0055);
+  overflow: hidden;
+  background-color: #000;
+}
+
+.kimiko-avatar-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.kimiko-title {
+  margin: 0;
+  font-size: 1rem;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.badge-cat {
+  font-size: 0.6rem;
+  background: var(--color-identidad, #ff0055);
+  color: #fff;
+  padding: 2px 5px;
+  border-radius: 4px;
+  font-weight: bold;
+}
+
+.kimiko-status {
+  margin: 2px 0 0 0;
+  font-size: 0.7rem;
+  color: #8e8e93;
+}
+
+.status-dot {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  background-color: #00ff66;
+  border-radius: 50%;
+  margin-right: 4px;
+}
+
+.close-widget-btn {
+  background: transparent;
+  border: none;
+  color: #8e8e93;
+  font-size: 1.2rem;
+  cursor: pointer;
+  margin-left: auto;
+  padding: 0 5px;
+  transition: color 0.2s;
+}
+
+.close-widget-btn:hover {
+  color: #fff;
+}
+
+/* Chat Body */
+.kimiko-chat-body {
+  padding: 15px;
+  height: 280px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 12px 12px;
+}
+
+/* Burbujas */
+.chat-bubble {
+  display: flex;
+  gap: 8px;
+  max-width: 88%;
+}
+
+.bot-bubble { align-self: flex-start; }
+.user-bubble { align-self: flex-end; flex-direction: row-reverse; }
+
+.mini-avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  overflow: hidden;
+  flex-shrink: 0;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.mini-avatar img { width: 100%; height: 100%; object-fit: cover; }
+
+.bubble-content {
+  background: rgba(30, 30, 35, 0.9);
+  padding: 10px 14px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #e1e1e1;
+  font-size: 0.85rem;
+  line-height: 1.4;
+}
+
+.user-bubble .bubble-content {
+  background: var(--color-identidad, #ff0055);
+  color: #fff;
+  border: none;
+}
+
+/* Tarjeta de Canción Recomendada */
+.song-recommendation-card {
+  margin-top: 8px;
+  background: rgba(10, 10, 12, 0.8);
+  border: 1px solid var(--color-identidad, #ff0055);
+  border-radius: 8px;
+  padding: 10px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.song-cover-mini {
+  width: 50px;
+  height: 50px;
+  border-radius: 6px;
+  object-fit: cover;
+}
+
+.song-info-mini h4 { margin: 0; color: #fff; font-size: 0.85rem; }
+.song-info-mini p { margin: 2px 0 6px 0; color: #8e8e93; font-size: 0.7rem; }
+
+.song-links { display: flex; gap: 6px; }
+
+.song-link-btn {
+  font-size: 0.65rem;
+  padding: 3px 6px;
+  border-radius: 4px;
+  text-decoration: none;
+  font-weight: bold;
+  color: #fff;
+  background: #222;
+  border: 1px solid rgba(255,255,255,0.2);
+}
+
+.song-link-btn.yt { background: #cc181e; }
+.song-link-btn.sp { background: #1db954; }
+
+/* Panel de Controles */
+.kimiko-controls {
+  padding: 12px 15px;
+  background-color: rgba(18, 18, 20, 0.95);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.control-label {
+  font-size: 0.6rem;
+  color: #7a7a82;
+  font-weight: bold;
+  letter-spacing: 1px;
+  margin: 0 0 6px 0;
+}
+
+.quick-options {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+}
+
+.bot-chip {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #fff;
+  padding: 5px 10px;
+  border-radius: 15px;
+  font-size: 0.75rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.bot-chip:hover {
+  background: var(--color-identidad, #ff0055);
+  border-color: var(--color-identidad, #ff0055);
+}
+
+.vibe-input-group { display: flex; gap: 6px; }
+
+.vibe-input-group input {
+  flex: 1;
+  background: #0d0d0f;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  padding: 6px 10px;
+  border-radius: 6px;
+  color: #fff;
+  font-size: 0.8rem;
+}
+
+.vibe-input-group input:focus {
+  outline: none;
+  border-color: var(--color-identidad, #ff0055);
+}
+
+.vibe-input-group .send-btn {
+  background: var(--color-identidad, #ff0055);
+  color: #fff;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-weight: bold;
+  font-size: 0.8rem;
+  cursor: pointer;
+}

@@ -24,9 +24,8 @@
     </div>
     <ul class="navbar__links">
       <li><a href="{% url 'core:home' %}">Home</a></li>
-      <!-- 🎯 CAMBIO AQUÍ: 'members:list' en lugar de 'members' -->
       <li><a href="{% url 'members:list' %}">Members</a></li>
-      <li><a href="#">Discography</a></li>
+      <li><a href="{% url 'core:discography' %}"></li>
       <li><a href="#">Lore</a></li>
     </ul>
   </nav>
@@ -50,8 +49,204 @@
       </p>
     </div>
   </footer>
-  
+
   {% block extra_js %}{% endblock %}
 
+  <!-- 🐱 BOT MUSICAL KIMIKO - WIDGET FLOTANTE -->
+  <div class="kimiko-widget-container">
+    
+    <!-- Ventana Flotante del Chat -->
+    <div class="kimiko-card kimiko-window" id="kimikoWindow">
+      
+      <!-- Header -->
+      <div class="kimiko-header">
+        <div class="kimiko-avatar-frame">
+          <img src="{% static 'music_bot/img/kimiko-avatar.png' %}" 
+               onerror="this.src='https://placehold.co/100x100/101014/ff0055?text=KIMIKO'"
+               alt="Kimiko Bot">
+        </div>
+
+        <div class="kimiko-info">
+          <h3 class="kimiko-title">
+            KIMIKO <span class="badge-cat">🐱 BOT</span>
+          </h3>
+          <p class="kimiko-status">
+            <span class="status-dot"></span>
+            Asistente Musical
+          </p>
+        </div>
+
+        <button class="close-widget-btn" onclick="toggleKimikoWidget()">✕</button>
+      </div>
+
+      <!-- Conversación -->
+      <div class="kimiko-chat-body" id="chatBody">
+        <div class="chat-bubble bot-bubble">
+          <div class="mini-avatar">
+            <img src="{% static 'music_bot/img/kimiko-avatar.png' %}"
+                 onerror="this.src='https://placehold.co/50x50/101014/ff0055?text=K'"
+                 alt="Kimiko">
+          </div>
+          <div class="bubble-content">
+            <p>
+              ¡Miau! Soy <strong>Kimiko</strong>. 
+              Dime qué vibra buscas hoy y te encontraré una canción ideal de xikers. 🎧
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Controles -->
+      <div class="kimiko-controls">
+        <p class="control-label">¿QUÉ VIBRA BUSCAS?</p>
+
+        <div class="quick-options">
+          <button class="bot-chip" onclick="getRecommendation('high','energia')">⚡ Necesito energía</button>
+          <button class="bot-chip" onclick="getRecommendation('high','baile')">💃 Quiero bailar</button>
+          <button class="bot-chip" onclick="getRecommendation('medium','emocional')">💛 Algo emocional</button>
+          <button class="bot-chip" onclick="getRecommendation('low','tranquilo')">🌙 Algo tranquilo</button>
+          <button class="bot-chip" onclick="getRecommendation('high','intenso')">🔥 Algo poderoso</button>
+          <button class="bot-chip" onclick="getRecommendation('','random')">🎲 Sorpréndeme</button>
+        </div>
+
+        <div class="vibe-input-group">
+          <input type="text" id="vibeInput" placeholder="Escribe una vibra...">
+          <button class="send-btn" onclick="getRecommendationByVibe()">Buscar</button>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Botón flotante -->
+    <button class="kimiko-launcher-btn" onclick="toggleKimikoWidget()" id="kimikoLauncher">
+      <img src="{% static 'music_bot/img/kimiko-avatar.png' %}"
+           onerror="this.src='https://placehold.co/100x100/101014/ff0055?text=🐱'"
+           alt="Abrir Kimiko Bot">
+      <span class="launcher-badge">♪</span>
+    </button>
+
+  </div>
+
+  <script>
+    // Abrir / cerrar Kimiko
+    function toggleKimikoWidget() {
+      const windowEl = document.getElementById('kimikoWindow');
+      windowEl.classList.toggle('active');
+
+      if (windowEl.classList.contains('active')) {
+        const chatBody = document.getElementById('chatBody');
+        chatBody.scrollTop = chatBody.scrollHeight;
+      }
+    }
+
+    // Obtener recomendación
+    function getRecommendation(energy, vibe = '') {
+      const chatBody = document.getElementById('chatBody');
+      const avatarUrl = "{% static 'music_bot/img/kimiko-avatar.png' %}";
+
+      let userText = vibe
+        ? `🐾 Busco algo con vibra: ${vibe}`
+        : '🎧 Kimiko elegirá una canción para mí';
+
+      chatBody.innerHTML += `
+        <div class="chat-bubble user-bubble">
+          <div class="bubble-content">
+            <p>${userText}</p>
+          </div>
+        </div>
+      `;
+
+      const typingId = 'typing-' + Date.now();
+
+      chatBody.innerHTML += `
+        <div class="chat-bubble bot-bubble" id="${typingId}">
+          <div class="mini-avatar">
+            <img src="${avatarUrl}" onerror="this.src='https://placehold.co/50x50/101014/ff0055?text=K'">
+          </div>
+          <div class="bubble-content">
+            <p>Kimiko está pensando... 🐾</p>
+          </div>
+        </div>
+      `;
+
+      chatBody.scrollTop = chatBody.scrollHeight;
+
+      fetch(`/bot/recommend/?energy=${energy}&vibe=${vibe}`)
+        .then(response => response.json())
+        .then(data => {
+          document.getElementById(typingId).remove();
+
+          if (data.success) {
+            let songsHTML = "";
+
+            data.songs.forEach(song => {
+              let ytBtn = song.youtube_url
+                ? `<a href="${song.youtube_url}" target="_blank" class="song-link-btn yt">YouTube</a>`
+                : "";
+
+              let spBtn = song.spotify_url
+                ? `<a href="${song.spotify_url}" target="_blank" class="song-link-btn sp">Spotify</a>`
+                : "";
+
+              let coverImg = song.cover_url
+                ? `<img src="${song.cover_url}" class="song-cover-mini">`
+                : "";
+
+              songsHTML += `
+                <div class="song-recommendation-card">
+                  ${coverImg}
+                  <div class="song-info-mini">
+                    <h4>${song.title}</h4>
+                    <p>${song.album}</p>
+                    <p>${song.energy}</p>
+                    <div class="song-links">
+                      ${ytBtn}
+                      ${spBtn}
+                    </div>
+                  </div>
+                </div>
+                <p>${song.review}</p>
+              `;
+            });
+
+            chatBody.innerHTML += `
+              <div class="chat-bubble bot-bubble">
+                <div class="mini-avatar">
+                  <img src="${avatarUrl}" onerror="this.src='https://placehold.co/50x50/101014/ff0055?text=K'">
+                </div>
+                <div class="bubble-content">
+                  <p>🐱 Encontré estas canciones para ti:</p>
+                  ${songsHTML}
+                </div>
+              </div>
+            `;
+          } else {
+            chatBody.innerHTML += `
+              <div class="chat-bubble bot-bubble">
+                <div class="mini-avatar">
+                  <img src="${avatarUrl}" onerror="this.src='https://placehold.co/50x50/101014/ff0055?text=K'">
+                </div>
+                <div class="bubble-content">
+                  <p>${data.message}</p>
+                </div>
+              </div>
+            `;
+          }
+
+          chatBody.scrollTop = chatBody.scrollHeight;
+        });
+    }
+
+    // Buscar por texto libre
+    function getRecommendationByVibe() {
+      const vibeInput = document.getElementById('vibeInput');
+      const vibe = vibeInput.value.trim();
+
+      if (vibe) {
+        getRecommendation('', vibe);
+        vibeInput.value = '';
+      }
+    }
+  </script>
 </body>
 </html>
